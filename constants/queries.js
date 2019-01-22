@@ -53,10 +53,22 @@ const getStudentQuery = gql`
   } 
 `;
 
+const allCoursesQuery = gql`
+  query allCourses {
+      allCourses {
+          id
+          name
+          description
+          level
+      }
+  }
+`;
+
 export {
     getAllStudentsQuery,
     createStudentMutation,
     removeStudentMutation,
     toggleActiveMutation,
-    getStudentQuery
+    getStudentQuery,
+    allCoursesQuery
 }

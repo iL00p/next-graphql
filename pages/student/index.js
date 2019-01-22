@@ -1,14 +1,19 @@
 import React from 'react';
-import { Query, graphql } from 'react-apollo';
+import { Query, graphql, compose } from 'react-apollo';
 
 import StudentPage from './student';
+import Styles from './styles';
 import Apollo from '../../config';
 import {
     getStudentQuery,
     toggleActiveMutation,
+    allCoursesQuery,
 } from '../../constants/queries';
 
-const MutationWrapper = graphql(toggleActiveMutation, {name : 'toggleActive'})(StudentPage);
+const MutationWrapper = compose(
+    graphql(toggleActiveMutation, { name: 'toggleActive' }),
+    graphql(allCoursesQuery, { name : 'allCourses' })
+)(StudentPage);
 
 const Student = (props) => (
     <Apollo>
@@ -20,6 +25,7 @@ const Student = (props) => (
                 data => <MutationWrapper {...props} studentDetails={data}/>
             }
         </Query>
+        <Styles/>
     </Apollo>
 );
 

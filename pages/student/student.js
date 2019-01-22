@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import CourseItem from '../../components/courseItem';
 
 export default class StudentPage extends Component {
     onToggle = async() => {
@@ -13,12 +14,15 @@ export default class StudentPage extends Component {
     }
 
     render() {
-        const { studentDetails, url } = this.props;
+        const { studentDetails, url, allCourses: { allCourses, loading : loadingCourses } } = this.props;
         const { loading, error } = studentDetails;
         const studentData = Object.assign({}, studentDetails.data.Student);
-        if (loading) return 'Loading...';
+        const studentCourseIds = (studentData.Courses || []).map(i => i.id);
+        if (loading || loadingCourses) return 'Loading...';
         if (error) return 'Has error...';
-
+        
+        const filteredCourses = allCourses.filter(course => !studentCourseIds.includes(course.id));
+ 
         return (
             <div>
                 <a onClick={url.back}>
@@ -30,15 +34,34 @@ export default class StudentPage extends Component {
                     Toggle Active
                 </button>
                 <hr />
-                <h2>Courses</h2>
-                {
-                    (studentData.Courses || []).map((i, index) => (
-                        <div key={i.id}>
-                            <h3>{index + 1}. {i.name}</h3>
-                            <p>{i.description}</p>
-                        </div>
-                    ))
-                }
+                <div className='container'>
+                    <div className='box'>
+                        <h2>Courses</h2>
+                        <hr/>
+                        {
+                            (studentData.Courses || []).map((i, index) => (
+                                <CourseItem 
+                                    key={i.id} 
+                                    index={index}
+                                    data={{...i, index}}
+                                />
+                            ))
+                        }
+                    </div>
+                    <div className='box'>
+                        <h2>All Courses</h2>
+                        <hr/>
+                        {
+                            (filteredCourses || []).map((i, index) => (
+                                <CourseItem
+                                    key={i.id}
+                                    index={index}
+                                    data={{ ...i, index }}
+                                />
+                            ))
+                        }
+                    </div>
+                </div>
             </div>
         )
     }
