@@ -37,9 +37,26 @@ const toggleActiveMutation = gql`
   }
 `;
 
+const getStudentQuery = gql`
+  query getStudent ($id : ID!) {
+      Student(id : $id) {
+          id
+          firstName
+          lastName
+          active
+          Courses {
+              id
+              name
+              description
+          }
+      }
+  } 
+`;
+
 export {
     getAllStudentsQuery,
     createStudentMutation,
     removeStudentMutation,
-    toggleActiveMutation
+    toggleActiveMutation,
+    getStudentQuery
 }

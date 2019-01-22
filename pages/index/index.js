@@ -2,6 +2,7 @@ import React from 'react';
 import { graphql, compose } from 'react-apollo';
 
 import Home from './home';
+import Styles from './styles';
 import Apollo from '../../config';
 import {
     getAllStudentsQuery,
@@ -20,5 +21,6 @@ const QueryWrapper = compose(
 export default () => (
     <Apollo>
         <QueryWrapper/>
+        <Styles />
     </Apollo>
 );

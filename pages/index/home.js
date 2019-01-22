@@ -76,7 +76,7 @@ export default class Home extends Component {
                         studentsData.allStudents.map(i => (
                             <Link href={`/student?id=${i.id}`} key={i.id}>
                                 <li>
-                                    #{i.id} -- {i.firstName+' '+i.lastName} - {i.active}
+                                    #{i.id} <span className="blue-text">{i.firstName + ' ' + i.lastName}</span> - {i.active}
                                 </li>
                             </Link>
                         ))
