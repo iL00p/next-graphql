@@ -6,6 +6,7 @@ const getAllStudentsQuery = gql`
             id
             firstName
             lastName
+            active
         }
     }
 `;
@@ -21,7 +22,41 @@ const createStudentMutation = gql`
   }
 `;
 
+const removeStudentMutation = gql`
+  mutation removeStudent($id: ID!) {
+      removeStudent(id : $id)
+  }
+`;
+
+const toggleActiveMutation = gql`
+  mutation toggleActiveMutation($id: ID!, $active: String!) {
+      updateStudent(id: $id, active: $active) {
+          id
+          active
+      }
+  }
+`;
+
+const getStudentQuery = gql`
+  query getStudent ($id : ID!) {
+      Student(id : $id) {
+          id
+          firstName
+          lastName
+          active
+          Courses {
+              id
+              name
+              description
+          }
+      }
+  } 
+`;
+
 export {
     getAllStudentsQuery,
-    createStudentMutation
+    createStudentMutation,
+    removeStudentMutation,
+    toggleActiveMutation,
+    getStudentQuery
 }
