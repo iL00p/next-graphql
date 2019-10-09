@@ -8,3 +8,5 @@ This repo is a sample project on integrating GraphQL with Next.js.
  npm install
  npm start
 ```
+
+For hacktobefest 2019
